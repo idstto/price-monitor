@@ -20,9 +20,7 @@ const productController = require('../controllers/products');
  *     tags:
  *        - Product
  */
-router.get('/', (req, res, next) => {
-  res.send('OK');
-});
+router.get('/', productController.getAllProducts);
 
 /**
  * @swagger
@@ -36,13 +34,9 @@ router.get('/', (req, res, next) => {
  *         description: Payload
  *         schema:
  *           type: object
+ *           required:
+ *             - url
  *           properties:
- *             name:
- *               type: string
- *             description:
- *               type: string
- *             price:
- *               type: number
  *             url:
  *               type: string
  *     responses:

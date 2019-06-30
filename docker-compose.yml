@@ -6,8 +6,8 @@ services:
     ports:
       - 27017:27017
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: secret
+      MONGO_INITDB_ROOT_USERNAME: price-monitor-user
+      MONGO_INITDB_ROOT_PASSWORD: noefXKVpcyUJdTD7
 #    volumes:
 #      - type: bind
 #        source: ./data
@@ -22,10 +22,10 @@ services:
       - NODE_ENV=development
       - DB_HOST=mongo
       - DB_PORT=27017
-      - DB_NAME=app
-      - DB_USER=root
-      - DB_PASSWORD=postgressecret
-    command: bash -c "npm install && npm start"
+      - DB_NAME=test
+      - DB_USER=price-monitor-user
+      - DB_PASSWORD=noefXKVpcyUJdTD7
+    command: bash -c "npm install nodemon -g && npm install && npm start"
     volumes:
       - type: bind
         source: ./backend

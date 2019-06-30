@@ -6,11 +6,19 @@ const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
 const productsRouter = require('./routes/products');
+const commentsRouter = require('./routes/comments');
 
 const app = express();
+
+const mongoHost = process.env.DB_HOST || 'localhost';
+const mongoPort = process.env.DB_PORT || '27017';
+const mongoDb = process.env.DB_NAME || 'test';
+const mongoUser = process.env.DB_USER || 'user';
+const mongoPassword = process.env.DB_USER || 'secret';
+
+mongoose.connect(`mongodb://${mongoUser}:${mongoPassword}@${mongoHost}:${mongoPort}/${mongoDb}`, { useNewUrlParser: true });
 
 app.use(logger('dev'));
 app.use(express.json());

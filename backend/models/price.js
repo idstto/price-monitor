@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const priceSchema = new Schema({
-    product: { type: Schema.Types.ObjectId, ref: 'Product' },
+    productId: { type: Schema.Types.ObjectId, ref: 'Product' },
     price: Number,
     createdAt: { type: Date, default: Date.now }
 });
