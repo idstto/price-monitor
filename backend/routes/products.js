@@ -6,6 +6,24 @@ const productController = require('../controllers/products');
 
 /**
  * @swagger
+ * /product/{id}:
+ *   get:
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: Comment ID
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: success
+ *
+ *     tags:
+ *        - Product
+ */
+router.get('/:id', productController.getProductDetail);
+
+/**
+ * @swagger
  * /product:
  *   get:
  *     parameters:

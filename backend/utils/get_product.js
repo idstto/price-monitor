@@ -5,7 +5,7 @@ module.exports.getProduct = async (url) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle2' });
-    console.log('GET_PRODUCT');
+
     const html = await page.evaluate(() => document.body.innerHTML);
     const $ = cheerio.load(html);
     let name = $('.page-title').text().trim();
@@ -20,7 +20,7 @@ module.exports.getProduct = async (url) => {
     let productId = priceBox[0].attribs['data-product-id'];
     let priceTag = $(`#product-price-${productId}`);
     let price = priceTag[0].attribs['data-price-amount'];
-    console.log('PRICE', price);
+
     await browser.close();
     return { url, name, description, imageUrl, price };
 }
