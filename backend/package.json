@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "test": "mocha",
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
@@ -17,5 +18,10 @@
     "puppeteer": "^1.18.1",
     "swagger-jsdoc": "^3.2.9",
     "swagger-ui-express": "^4.0.6"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "sinon": "^7.3.2"
   }
 }
