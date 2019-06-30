@@ -1,0 +1,55 @@
+version: '3.3'
+
+services:
+  mongo:
+    image: mongo:4.1
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: secret
+#    volumes:
+#      - type: bind
+#        source: ./data
+#        target: /data/db
+
+  backend:
+    image: node:10.16
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=development
+      - DB_HOST=mongo
+      - DB_PORT=27017
+      - DB_NAME=app
+      - DB_USER=root
+      - DB_PASSWORD=postgressecret
+    command: bash -c "npm install && npm start"
+    volumes:
+      - type: bind
+        source: ./backend
+        target: /usr/src/app/backend
+        consistency: consistent
+    working_dir: /usr/src/app/backend
+    tty: true
+    links:
+      - mongo
+
+  frontend:
+    image: node:10.16
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_ENV=development
+      - PORT=8000
+    command: bash -c "npm install && npm start"
+    volumes:
+      - type: bind
+        source: ./frontend
+        target: /usr/src/app/frontend
+        consistency: consistent
+    working_dir: /usr/src/app/frontend
+    tty: true
+    links:
+      - backend
