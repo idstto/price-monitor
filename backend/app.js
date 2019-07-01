@@ -16,9 +16,14 @@ const mongoHost = process.env.DB_HOST || 'localhost';
 const mongoPort = process.env.DB_PORT || '27017';
 const mongoDb = process.env.DB_NAME || 'test';
 const mongoUser = process.env.DB_USER || 'user';
-const mongoPassword = process.env.DB_USER || 'secret';
+const mongoPassword = process.env.DB_PASSWORD || 'secret';
 
-mongoose.connect(`mongodb://${mongoUser}:${mongoPassword}@${mongoHost}:${mongoPort}/${mongoDb}`, { useNewUrlParser: true });
+console.log(`mongodb://${mongoUser}:${mongoPassword}@${mongoHost}:${mongoPort}/${mongoDb}`);
+const connectionString = `mongodb://${mongoUser}:${mongoPassword}@${mongoHost}:${mongoPort}/${mongoDb}`;
+
+mongoose.connect(connectionString, { useNewUrlParser: true }, (error) => {
+    if (error) console.log('MONGODB_CONNECTION_FAILED: ', error);
+});
 
 app.use(logger('dev'));
 app.use(express.json());

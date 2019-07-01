@@ -1,3 +1,4 @@
+const Product = require('../models/product');
 const Comment = require('../models/comment');
 
 exports.getComments = async (req, res, next) => {
@@ -12,8 +13,12 @@ exports.addComment = async (req, res, next) => {
     const email = req.body.email;
     const userComment = req.body.comment;
 
+    const product = await Product.findById(productId);
+    if (! product) return res.status(404).send(`Product with id "${productId}" not found.`);
     const comment = new Comment({ productId, userName, email, comment: userComment });
     await comment.save();
+    product.comments.push(comment);
+    await product.save();
     res.send({ message: 'OK', id: comment._id });
 }
 
